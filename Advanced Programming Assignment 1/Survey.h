@@ -1,10 +1,17 @@
 #pragma once
 #include "Student.h"
+#include "GamingStudent.h"
+#include "NonGamingStudent.h"
 
 class Survey
 {
 private:
 	int numParticipants;
+
+	//all these functions will operate differently depending on what bool value is passe to them
+	int averageAge(bool mode);
+	string preferredEntertainment(bool mode);
+	int averageEntertainmentHours(bool mode);
 public:
 	//constructors
 	Survey();
@@ -26,7 +33,4 @@ public:
 	*	Average age
 	*	Most preferred gaming device
 	*	Average hours spent consuming gaming entertainment*/
-
-	//other functions
-
 };
