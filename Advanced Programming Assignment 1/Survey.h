@@ -1,4 +1,5 @@
 #pragma once
+#include <iostream>
 #include "Student.h"
 #include "GamingStudent.h"
 #include "NonGamingStudent.h"

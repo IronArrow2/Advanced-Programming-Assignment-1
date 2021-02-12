@@ -13,13 +13,77 @@ int Survey::averageAge(bool mode)
 			numStudents++;
 		}
 	}
+	cout << numStudents << " " << totalAge;
 	averageAge = totalAge / numStudents;
+	cout << averageAge;
 	return averageAge;
 }
 
 string Survey::preferredEntertainment(bool mode)
-{
-	return "";
+{//mode should be true if object is type GamingStudent and false if type NonGamingStudent
+	int optionOneTotal = 0;
+	int optionTwoTotal = 0;
+	int optionThreeTotal = 0;
+	int optionFourTotal = 0;
+	string preferredEntertainment;
+	if (mode == true)
+	{
+		for (int i = 0; i < numParticipants; i++)
+		{
+			if (surveyParticipants[i]->isGamingStudent == mode)
+			{
+				if (static_cast<GamingStudent*>(surveyParticipants[i])->getGamingSystem() == "Steam")
+				{
+					optionOneTotal++;
+				}
+				else if (static_cast<GamingStudent*>(surveyParticipants[i])->getGamingSystem() == "Xbox")
+				{
+					optionTwoTotal++;
+				}
+				else if (static_cast<GamingStudent*>(surveyParticipants[i])->getGamingSystem() == "Playstation")
+				{
+					optionThreeTotal++;
+				}
+				else if (static_cast<GamingStudent*>(surveyParticipants[i])->getGamingSystem() == "Epic Games")
+				{
+					optionFourTotal++;
+				}
+			}
+		}
+
+
+	}
+	if (mode == false)
+	{
+		for (int i = 0; i < numParticipants; i++)
+		{
+			if (surveyParticipants[i]->isGamingStudent == mode)
+			{
+				if (static_cast<NonGamingStudent*>(surveyParticipants[i])->getStreamingService() == "Twitch")
+				{
+					optionOneTotal++;
+				}
+				else if (static_cast<NonGamingStudent*>(surveyParticipants[i])->getStreamingService() == "YouTube")
+				{
+					optionTwoTotal++;
+				}
+			}
+		}
+
+		if (optionOneTotal == optionTwoTotal)
+		{
+			preferredEntertainment = "Tie!";
+		}
+		else if (optionOneTotal > optionTwoTotal)
+		{
+			preferredEntertainment = "Twitch";
+		}
+		else
+		{
+			preferredEntertainment = "YouTube";
+		}
+	}
+	return preferredEntertainment;
 }
 
 int Survey::averageEntertainmentHours(bool mode)
@@ -50,6 +114,7 @@ int Survey::averageEntertainmentHours(bool mode)
 		}
 	}
 	averageHours = totalHours / numStudents;
+	cout << averageHours;
 	return averageHours;
 }
 
