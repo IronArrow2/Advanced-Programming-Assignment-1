@@ -13,6 +13,7 @@ private:
 	int averageAge(bool mode);
 	string preferredEntertainment(bool mode);
 	int averageEntertainmentHours(bool mode);
+	int getNumStudentsByType(bool mode);
 public:
 	//constructors
 	Survey();

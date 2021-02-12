@@ -79,7 +79,7 @@ int main()
 		randomName = randomFirstName + " " + randomLastName;
 		collegeSurvey->surveyParticipants[i]->setName(randomName);
 		//generate random age (18-30)
-		randomAge = rand() % 30 + 18;
+		randomAge = rand() % 12 + 18;
 		collegeSurvey->surveyParticipants[i]->setAge(randomAge);
 		//generate random college
 		randomCollege = data.colleges[rand() % 3];

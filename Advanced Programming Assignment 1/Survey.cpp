@@ -13,19 +13,24 @@ int Survey::averageAge(bool mode)
 			numStudents++;
 		}
 	}
-	cout << numStudents << " " << totalAge;
-	averageAge = totalAge / numStudents;
-	cout << averageAge;
+	if (numStudents == 0)
+	{
+		averageAge = totalAge / 1;
+	}
+	else
+	{
+		averageAge = totalAge / numStudents;
+	}
 	return averageAge;
 }
 
 string Survey::preferredEntertainment(bool mode)
 {//mode should be true if object is type GamingStudent and false if type NonGamingStudent
-	int optionOneTotal = 0;
-	int optionTwoTotal = 0;
-	int optionThreeTotal = 0;
-	int optionFourTotal = 0;
+	int options[4]{0, 0, 0, 0};
+	int x = 0;
+	int y = 0;
 	string preferredEntertainment;
+
 	if (mode == true)
 	{
 		for (int i = 0; i < numParticipants; i++)
@@ -34,25 +39,49 @@ string Survey::preferredEntertainment(bool mode)
 			{
 				if (static_cast<GamingStudent*>(surveyParticipants[i])->getGamingSystem() == "Steam")
 				{
-					optionOneTotal++;
+					options[0]++;
 				}
 				else if (static_cast<GamingStudent*>(surveyParticipants[i])->getGamingSystem() == "Xbox")
 				{
-					optionTwoTotal++;
+					options[1]++;
 				}
 				else if (static_cast<GamingStudent*>(surveyParticipants[i])->getGamingSystem() == "Playstation")
 				{
-					optionThreeTotal++;
+					options[2]++;
 				}
 				else if (static_cast<GamingStudent*>(surveyParticipants[i])->getGamingSystem() == "Epic Games")
 				{
-					optionFourTotal++;
+					options[3]++;
 				}
 			}
 		}
 
-
+		for (int i = 0; i < 4; i++)
+		{
+			if (options[i] > x)
+			{
+				x = options[i];
+				y = i;
+			}
+		}
+		if (y == 0)
+		{
+			preferredEntertainment = "Steam";
+		}
+		if (y == 1)
+		{
+			preferredEntertainment = "Xbox";
+		}
+		if (y == 2)
+		{
+			preferredEntertainment = "Playstation";
+		}
+		if (y == 3)
+		{
+			preferredEntertainment = "Epic Games";
+		}
 	}
+
 	if (mode == false)
 	{
 		for (int i = 0; i < numParticipants; i++)
@@ -61,20 +90,20 @@ string Survey::preferredEntertainment(bool mode)
 			{
 				if (static_cast<NonGamingStudent*>(surveyParticipants[i])->getStreamingService() == "Twitch")
 				{
-					optionOneTotal++;
+					options[0]++;
 				}
 				else if (static_cast<NonGamingStudent*>(surveyParticipants[i])->getStreamingService() == "YouTube")
 				{
-					optionTwoTotal++;
+					options[1]++;
 				}
 			}
 		}
 
-		if (optionOneTotal == optionTwoTotal)
+		if (options[0] == options[1])
 		{
 			preferredEntertainment = "Tie!";
 		}
-		else if (optionOneTotal > optionTwoTotal)
+		else if (options[0] > options[1])
 		{
 			preferredEntertainment = "Twitch";
 		}
@@ -113,9 +142,29 @@ int Survey::averageEntertainmentHours(bool mode)
 			}
 		}
 	}
-	averageHours = totalHours / numStudents;
-	cout << averageHours;
+	if (numStudents == 0)
+	{
+		averageHours = totalHours / 1;
+	}
+	else
+	{
+		averageHours = totalHours / numStudents;
+	}
+
 	return averageHours;
+}
+
+int Survey::getNumStudentsByType(bool mode)
+{
+	int numStudents = 0;
+	for (int i = 0; i < numParticipants; i++)
+	{
+		if (surveyParticipants[i]->isGamingStudent == mode)
+		{
+			numStudents++;
+		}
+	}
+	return numStudents;
 }
 
 Survey::Survey()
@@ -138,16 +187,23 @@ Survey::~Survey()
 
 void Survey::process()
 {
+	string output = "Number of Non-Gaming Students: ";
+	//find number of NonGamingStudents
+	output = output + to_string(getNumStudentsByType(false)) + ", average age: ";
 	//find average age of NonGamingStudents
-
+	output = output + to_string(averageAge(false)) + ", most used streaming service: ";
 	//find preferred streaming service of NonGamingStudents
-
+	output = output + preferredEntertainment(false) + ", average hours spent watching streams weekly: ";
 	//find average hours streaming of NonGamingStudents
-
+	output = output + to_string(averageEntertainmentHours(false)) + "\nNumber of Gaming Students: ";
+	//find number of GamingStudents
+	output = output + to_string(getNumStudentsByType(true)) + ", average age: ";
 	//find average age of GamingStudents
-
-	//find preferred gaming playtform of GamingStudents
-
+	output = output + to_string(averageAge(true)) + ", most used game platform: ";
+	//find preferred gaming platform of GamingStudents
+	output = output + preferredEntertainment(true) + ", average hours spent gaming weekly: ";
 	//find average hours gaming of GamingStudents
-
+	output = output + to_string(averageEntertainmentHours(true)) + "\n";
+	//assemble information and print to console
+	cout << output;
 }
