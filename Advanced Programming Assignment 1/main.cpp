@@ -53,7 +53,7 @@ int main()
 		{
 			collegeSurvey->surveyParticipants[i] = new NonGamingStudent();
 			//if NonGaming, generate streaming service...
-			randomStreamingService = data.streamingServices[rand() % 1];
+			randomStreamingService = data.streamingServices[rand() % 2];
 			static_cast<NonGamingStudent*>(collegeSurvey->surveyParticipants[i])->setStreamingService(randomStreamingService);
 			//...and hours spent consuming media (weekly, 1-80)
 			randomHoursStreaming = rand() % 80 + 1;
