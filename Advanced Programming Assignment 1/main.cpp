@@ -33,9 +33,9 @@ int main()
 	{
 		getline(cin, input);
 		numParticipants = stoi(input);
-		if (numParticipants < 2)
+		if (numParticipants < 10)
 		{
-			cout << "Too few participants" << endl;
+			cout << "Too few participants, must be more than 10" << endl;
 		}
 		if (numParticipants > 500)
 		{
